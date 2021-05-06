@@ -1,0 +1,9 @@
+use iniciolaravel;
+
+select * from products;
+select * from categories;
+select * from images;
+select * from products_has_categories;
+select * from orders_has_products;
+select * from orders;
+select * from users;
