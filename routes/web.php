@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Order;
@@ -22,10 +23,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('products', function () {
+/* Route::get('products', function () {
     $products = Product::where('available', true)->get();
     return view('components.products', compact('products'));
-});
+}); */
+
+Route::resource('products', ProductController::class);
 
 Route::get('pruebaProductos', function () {
     //select
@@ -52,12 +55,12 @@ Route::get('pruebaProductos', function () {
     $iphone13 = Product::find(51);
     $iphone13->delete();
     dd($iphone13);
+ */
+    $categories = Category::find(3);
 
-    $categories = Product::find(1);
+    dd($categories->products);
 
-    dd($categories->categories);
-
-    $product = Category::find(3);
+    /* $product = Category::find(3);
 
     dd($product->products);
 
@@ -68,8 +71,8 @@ Route::get('pruebaProductos', function () {
     $orders = Order::find(2);
     dd($orders->products); */
 
-    $user = User::find(1);
-    dd($user->orders);
+    /* $user = User::find(1);
+    dd($user->orders); */
 });
 
 /* Route::post();

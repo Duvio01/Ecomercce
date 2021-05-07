@@ -14,10 +14,10 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->charset ='utf8mb4';
+            $table->charset = 'utf8mb4';
             $table->id();
             $table->timestamps();
-            $table->string('name',100);
+            $table->string('name', 100);
             $table->string('description');
             $table->bigInteger('price');
             $table->boolean('available')->default(true);
