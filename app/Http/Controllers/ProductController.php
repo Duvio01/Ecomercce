@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductHasCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,9 +16,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('available', true)->get();
+        $products = Product::where('available', true)->take(4)->get();
         $categories = Category::all();
         return view('components/products.index', compact('products', 'categories'));
+
+        
     }
 
     /**
@@ -27,7 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('components/products.create', compact('categories'));
     }
 
     /**
@@ -38,7 +42,43 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dataProductForm = $request->validate([
+            'name' => ['string', 'required'],
+            'description' => ['string', 'required'],
+            'price' => ['numeric', 'required'],
+            'stock' => ['numeric', 'required'],
+            'score' => ['numeric', 'required'],
+            'video_url' => ['string', 'required'],
+            'discount' => ['numeric', 'required'],
+            'categories' => ['required'],
+            'available' => ['nullable']
+        ]);
+
+        //dd($dataProductForm);
+
+        $newProduct = new Product();
+        $newProduct->name = $dataProductForm['name'];
+        $newProduct->description = $dataProductForm['description'];
+        $newProduct->price = $dataProductForm['price'];
+        $newProduct->stock = $dataProductForm['stock'];
+        $newProduct->score = $dataProductForm['score'];
+        $newProduct->video_url = $dataProductForm['video_url'];
+        $newProduct->discount = $dataProductForm['discount'];
+        if (isset($dataProductForm['available'])) {
+            $newProduct->available = true;
+        } else {
+            $newProduct->available = false;
+        }
+
+        $newProduct->save();
+
+        foreach ($dataProductForm['categories'] as $category) {
+            $newCategory = new ProductHasCategory();
+            $newCategory->category_id = $category;
+            $newCategory->product_id = $newProduct->id;
+            $newCategory->save();
+        }
+
     }
 
     /**
@@ -48,8 +88,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
-    {  
-        return view('components/products.show', compact('product'));
+    {
+        $discount = ($product->price) - ((($product->price) * ($product->discount)) / 100);
+        return view('components/products.show', compact('product', 'discount'));
     }
 
     /**

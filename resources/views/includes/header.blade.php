@@ -5,7 +5,7 @@
         <div class="primary-nav">
           <!--====== Main Logo ======-->
 
-          <a class="main-logo" href="index.html">
+          <a class="main-logo" href="{{route('products.index')}}">
             <img src="images/logo/logo-1.png" alt=""
           /></a>
           <!--====== End - Main Logo ======-->

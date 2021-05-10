@@ -11,7 +11,6 @@
                             <h1 class="section__heading u-c-secondary u-s-m-b-12">
                                 TOP TRENDING
                             </h1>
-
                             <span class="section__span u-c-silver">CHOOSE CATEGORY</span>
                         </div>
                     </div>
@@ -45,7 +44,7 @@
                             <div class="row">
                                 @foreach ($products as $product)
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item 
-                                    @foreach ($product->categories as $category) {{ strtoupper($category->name) }} @endforeach
+                                        @foreach ($product->categories as $category) {{ strtoupper($category->name) }} @endforeach
                                         ">
                                         <div class="product-o product-o--hover-on product-o--radius">
                                             <div class="product-o__wrap">
@@ -84,9 +83,8 @@
                                             <span class="product-o__category">
                                                 @foreach ($product->categories as $category)
                                                     <a href="shop-side-version-2.html">{{ $category->name }}</a>
+                                                @endforeach
                                             </span>
-                                            |
-                                @endforeach
                                 <span class="product-o__name">
                                     <a
                                         href="{{ route('products.show', ['product' => $product->id]) }}">{{ $product->name }}</a></span>
@@ -95,10 +93,13 @@
                                         <i class="fas fa-star"></i>
                                     @endfor
                                 </div>
-
-                                <span class="product-o__price">${{ $product->price }}
-
-                                    <span class="product-o__discount">{{ $product->price }}</span></span>
+                                @if ($product->discount > 0)
+                                    <span
+                                        class="product-o__price">${{ $product->price - ($product->price * $product->discount) / 100 }}
+                                        <span class="product-o__discount">${{ $product->price }}</span></span>
+                                @else
+                                    <span class="product-o__price">${{ $product->price }}
+                                @endif
                             </div>
                         </div>
                         @endforeach
@@ -107,9 +108,9 @@
             </div>
             <div class="col-lg-12">
                 <div class="load-more">
-                    <button class="btn btn--e-brand" type="button">
+                    <a href="{{route('products2.index')}}" class="btn btn--e-brand" type="button">
                         Load More
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

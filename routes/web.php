@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product2Controller;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Image;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 /* Route::get('products', function () {
@@ -29,6 +30,7 @@ Route::get('/', function () {
 }); */
 
 Route::resource('products', ProductController::class);
+Route::resource('products2', Product2Controller::class);
 
 Route::get('pruebaProductos', function () {
     //select
