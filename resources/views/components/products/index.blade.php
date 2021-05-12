@@ -61,7 +61,7 @@
                                                                 title="Quick View"><i class="fas fa-search-plus"></i></a>
                                                         </li>
                                                         <li>
-                                                            <a data-modal="modal" data-modal-id="#add-to-cart"
+                                                            <a href="{{ route('cart.addOne', ['product' =>$product->id])}}" data-modal="modal" data-modal-id="#add-to-cart"
                                                                 data-tooltip="tooltip" data-placement="top"
                                                                 title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
                                                         </li>
@@ -95,10 +95,10 @@
                                 </div>
                                 @if ($product->discount > 0)
                                     <span
-                                        class="product-o__price">${{ $product->price - ($product->price * $product->discount) / 100 }}
-                                        <span class="product-o__discount">${{ $product->price }}</span></span>
+                                        class="product-o__price">${{ number_format($product->price - ($product->price * $product->discount) / 100) }}
+                                        <span class="product-o__discount">${{ number_format($product->price) }}
                                 @else
-                                    <span class="product-o__price">${{ $product->price }}
+                                    <span class="product-o__price">${{ number_format($product->price) }} </span>
                                 @endif
                             </div>
                         </div>

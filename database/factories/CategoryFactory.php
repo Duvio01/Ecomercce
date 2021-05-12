@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
         return [
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
-            'name' => $this->faker->unique()->randomElement(['Tecnologia', 'Jugueteria', 'Deportes', 'Cocina', 'Videojuegos'])
+            'name' => $this->faker->unique()->randomElement(['TECNOLOGIA', 'JUGUETERIA', 'COMPUTADORES', 'FIGURAS DE ACCION', 'VIDEOJUEGOS', 'CELULARES', 'TELEVISORES', 'LEGO', 'OTROS'])
         ];
     }
 }

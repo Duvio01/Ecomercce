@@ -65,13 +65,13 @@
                         <div>
                             @if ($product->discount > 0)
                                 <div class="pd-detail__inline">
-                                    <span class="pd-detail__price">{{ $discount }}</span>
+                                    <span class="pd-detail__price">${{ number_format($discount) }}</span>
                                     <span class="pd-detail__discount">({{ $product->discount }}% OFF)</span><del
-                                        class="pd-detail__del">{{ $product->price }}</del>
+                                        class="pd-detail__del">${{ number_format($product->price) }}</del>
                                 </div>
                             @else
                                 <div class="pd-detail__inline">
-                                    <span class="pd-detail__price">{{ $product->price }}</span>
+                                    <span class="pd-detail__price">${{ number_format($product->price) }}</span>
                                 </div>
                             @endif
                         </div>
@@ -137,17 +137,19 @@
                             </ul>
                         </div>
                         <div class="u-s-m-b-15">
-                            <form class="pd-detail__form">
+                            <form class="pd-detail__form" method="POST" action="{{ route('cart.store')}}">
+                                @csrf
                                 <div class="pd-detail-inline-2">
                                     <div class="u-s-m-b-15">
+                                        <input type="hidden" name="productId" value="{{$product->id}}">
 
                                         <!--====== Input Counter ======-->
                                         <div class="input-counter">
 
                                             <span class="input-counter__minus fas fa-minus"></span>
 
-                                            <input class="input-counter__text input-counter--text-primary-style" type="text"
-                                                value="1" data-min="1" data-max="1000">
+                                            <input class="input-counter__text input-counter--text-primary-style"
+                                            name="amount" type="text" value="1" data-min="1" data-max="1000">
 
                                             <span class="input-counter__plus fas fa-plus"></span>
                                         </div>

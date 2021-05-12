@@ -16,7 +16,7 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        Category::factory(5)->create();
+        Category::factory(9)->create();
 
         /* $faker = Faker::create();
         for ($i = 0; $i < 50; $i++) {

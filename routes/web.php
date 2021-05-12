@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Product2Controller;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
@@ -31,10 +32,12 @@ Route::get('/', function () {
 
 Route::resource('products', ProductController::class);
 Route::resource('products2', Product2Controller::class);
+Route::resource('cart', CartController::class);
+Route::get('cart/addOne/{product}', [CartController::class, 'addOne'])->name('cart.addOne');
 
-Route::get('pruebaProductos', function () {
+/* Route::get('pruebaProductos', function () {
     //select
-    /* $productos = Product::where('available', true)->get();
+    $productos = Product::where('available', true)->get();
     foreach($productos as $producto) {
         echo($producto->price);
         echo("<br>");
@@ -57,12 +60,12 @@ Route::get('pruebaProductos', function () {
     $iphone13 = Product::find(51);
     $iphone13->delete();
     dd($iphone13);
- */
+
     $categories = Category::find(3);
 
     dd($categories->products);
 
-    /* $product = Category::find(3);
+    $product = Category::find(3);
 
     dd($product->products);
 
@@ -71,11 +74,11 @@ Route::get('pruebaProductos', function () {
     dd($image->images()->get());
 
     $orders = Order::find(2);
-    dd($orders->products); */
+    dd($orders->products);
 
-    /* $user = User::find(1);
-    dd($user->orders); */
-});
+    $user = User::find(1);
+    dd($user->orders);
+}); */
 
 /* Route::post();
 Route::put();

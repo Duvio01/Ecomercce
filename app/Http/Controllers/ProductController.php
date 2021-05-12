@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductHasCategory;
 use Illuminate\Http\Request;
@@ -16,11 +17,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('available', true)->take(4)->get();
+        $products = Product::where('available', true)->get()->take(4);
         $categories = Category::all();
         return view('components/products.index', compact('products', 'categories'));
-
-        
     }
 
     /**
@@ -51,7 +50,8 @@ class ProductController extends Controller
             'video_url' => ['string', 'required'],
             'discount' => ['numeric', 'required'],
             'categories' => ['required'],
-            'available' => ['nullable']
+            'available' => ['nullable'],
+            'images' => ['string', 'required']
         ]);
 
         //dd($dataProductForm);
@@ -72,6 +72,11 @@ class ProductController extends Controller
 
         $newProduct->save();
 
+        $newImage = new Image();
+        $newImage->url = $dataProductForm['images'];
+        $newImage->product_id = $newProduct->id;
+        $newImage->save();
+
         foreach ($dataProductForm['categories'] as $category) {
             $newCategory = new ProductHasCategory();
             $newCategory->category_id = $category;
@@ -79,6 +84,7 @@ class ProductController extends Controller
             $newCategory->save();
         }
 
+        return redirect()->route('products.index');
     }
 
     /**

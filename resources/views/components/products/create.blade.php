@@ -50,7 +50,7 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="categories">Seleccione categorias del producto</label>
+                                    <label for="categories">Select product categories</label>
                                     <select name="categories[]" multiple class="form-control" id="categories">
                                         @foreach ($categories as $cat)
                                             <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -66,6 +66,11 @@
                                     <label for="video_url">Product video</label>
                                     <input name="video_url" required type="text" class="form-control" id="video_url"
                                         placeholder="ingrese el video trailer del producto">
+                                </div>
+                                <div class="form-group">
+                                    <label for="images">Product image</label>
+                                    <input name="images" required type="text" class="form-control" id="images"
+                                        placeholder="Ingrese la imagen del producto">
                                 </div>
                                 <div class="form-group">
                                     <label for="discount">Discount</label>
