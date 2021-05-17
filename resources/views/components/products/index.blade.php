@@ -108,7 +108,7 @@
             </div>
             <div class="col-lg-12">
                 <div class="load-more">
-                    <a href="{{route('products2.index')}}" class="btn btn--e-brand" type="button">
+                    <a href="{{ route('categories.index')}}" class="btn btn--e-brand" type="button">
                         Load More
                     </a>
                 </div>

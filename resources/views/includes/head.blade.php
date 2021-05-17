@@ -16,4 +16,4 @@
 <link rel="stylesheet" href="{{ asset('css/utility.css') }}">
 
 <!--====== App ======-->
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<link rel="stylesheet" href="{{ asset('css/ludus.css') }}">

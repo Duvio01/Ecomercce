@@ -1,13 +1,8 @@
 <?php
 
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\Product2Controller;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-use App\Models\Category;
-use App\Models\Image;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,65 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
-/* Route::get('products', function () {
-    $products = Product::where('available', true)->get();
-    return view('components.products', compact('products'));
-}); */
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
 
 Route::resource('products', ProductController::class);
-Route::resource('products2', Product2Controller::class);
+Route::resource('categories', CategoryController::class);
 Route::resource('cart', CartController::class);
 Route::get('cart/addOne/{product}', [CartController::class, 'addOne'])->name('cart.addOne');
-
-/* Route::get('pruebaProductos', function () {
-    //select
-    $productos = Product::where('available', true)->get();
-    foreach($productos as $producto) {
-        echo($producto->price);
-        echo("<br>");
-    }
-
-    //insert
-    $nuevoProducto = new Product();
-    $nuevoProducto->name = "iPhone 13 super pro max";
-    $nuevoProducto->price = 10000000;
-    $nuevoProducto->description = "lo mismo mas caro";
-    $nuevoProducto->save();
-
-    //update
-    $iphone13= Product::find(51);
-    $iphone13->price = 16800000;
-    $iphone13->save();
-    dd($iphone13);
-
-    //delete
-    $iphone13 = Product::find(51);
-    $iphone13->delete();
-    dd($iphone13);
-
-    $categories = Category::find(3);
-
-    dd($categories->products);
-
-    $product = Category::find(3);
-
-    dd($product->products);
-
-    $image = Product::find(3);
-
-    dd($image->images()->get());
-
-    $orders = Order::find(2);
-    dd($orders->products);
-
-    $user = User::find(1);
-    dd($user->orders);
-}); */
-
-/* Route::post();
-Route::put();
-Route::delete();
-Route::any(); */

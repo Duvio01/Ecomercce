@@ -49,38 +49,37 @@ class CartController extends Controller
         if($request->session()->has('cart') == false) {
             $request->session()->put('cart', ['products' => [] ]);
         }
-        $request -> session() -> push('cart.products', ['product' => $productSelected, 'amount' => $amount]);
 
-        $doubleProducts = session()->get('cart.products');
+        $cartProducts = $request->session()->get('cart.products');
+        /* $indexFoundProduct = -1;
 
-        $index = 0;
-        $b = false;
-        foreach($doubleProducts as $doubleProduct) {
-            if($doubleProduct['product']->id == $productSelected->id){
-                $newAmount = session()->get('cart.products')[$index]['amount'];
-                $request->session()->put('cart.products', ['product' => $productSelected, 'amount' =>($newAmount + 1)]);
-                $b = true;
+        foreach ($cartProducts as $index => $cartProduct) {
+            
+            if($cartProduct['product']->id == $productSelected->id) {
+                $indexFoundProduct = $index;
                 break;
             }
-            $index++;
-        }
+        } */
 
-        if($b) {
+        $indexFoundProduct = collect($request->session()->get('cart.products')) ->search(function ($cartProduct) use ($productSelected) {
+            return $cartProduct['product']->id == $productSelected->id;
+        });
+
+        if($indexFoundProduct != false) {
+            $cartProducts[$indexFoundProduct]['amount'] += $amount;
+            $request -> session() -> put('cart.products', $cartProducts);
+            $request->session()->flash('status',"se actualizo cantidad de $productSelected->name en el carrito");
+        }else{
             $request -> session() -> push('cart.products', ['product' => $productSelected, 'amount' => $amount]);
+            $request -> session()->flash('status',"se agrego producto $productSelected->name al carrito");
         }
 
-        //dd($doubleProduct);
-
-        return redirect()->route('cart.index');
+        return redirect()->route('products.index');
     }
 
     public function addOne(Product $product)
     {
         //dd($product);
-
-        if(session()->has('cart') == false) {
-            session()->put('cart', ['products' => [] ]);
-        }
         
         session() -> push('cart.products', ['product' => $product, 'amount' => 1]);
 

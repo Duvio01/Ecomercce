@@ -24,12 +24,10 @@
                                         </div>
                                         <div class="shop-w__wrap collapse show" id="s-category">
                                             <ul class="shop-w__category-list gl-scroll">
-                                                @foreach ($categories as $category)
-                                                    <li class="has-list">
-                                                        <a href="">{{ $category->name }}</a>
-                                                        <span class="category-list__text u-s-m-l-6">(23)</span>
-                                                    </li>
-                                                @endforeach
+                                                <li class="has-list">
+                                                    <a>{{ $categories }}</a>
+                                                    <span class="category-list__text u-s-m-l-6">(1)</span>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -204,7 +202,8 @@
                                                             data-placement="top" title="Quick Look"></a>
                                                     </div>
                                                     <div class="product-m__add-cart">
-                                                        <a href="{{ route('cart.addOne', ['product' =>$product->id])}}" class="btn--e-brand" data-modal="modal"
+                                                        <a href="{{ route('cart.addOne', ['product' => $product->id]) }}"
+                                                            class="btn--e-brand" data-modal="modal"
                                                             data-modal-id="#add-to-cart">Add to Cart</a>
                                                     </div>
                                                 </div>
@@ -215,14 +214,16 @@
                                                         @endforeach
                                                     </div>
                                                     <div class="product-m__name">
-                                                        <a href="{{ route('products.show', ['product' => $product->id]) }}">{{ $product->name }}</a>
+                                                        <a
+                                                            href="{{ route('products.show', ['product' => $product->id]) }}">{{ $product->name }}</a>
                                                     </div>
                                                     <div class="product-m__rating gl-rating-style">
                                                         @for ($i = 0; $i < $product->score; $i++)
                                                             <i class="fas fa-star"></i>
                                                         @endfor
                                                     </div>
-                                                    <div class="product-m__price">${{ number_format($product->price) }}</div>
+                                                    <div class="product-m__price">${{ number_format($product->price) }}
+                                                    </div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
                                                             <span>{{ $product->description }}</span>

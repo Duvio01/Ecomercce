@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class Product2Controller extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,10 @@ class Product2Controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $products = Product::where('available', true)->get();
         $categories = Category::all();
-        return view('components/products2.index', compact('products', 'categories'));
+        return view('components/categories.index', compact('products', 'categories'));
     }
 
     /**
@@ -44,21 +44,25 @@ class Product2Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Category $category)
     {
-        //
+        //dd($category->name);
+        $categories = $category->name;
+        $products = $category->products;
+
+        return view('components/categories.show', compact('products', 'categories'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Category $category)
     {
         //
     }
@@ -67,10 +71,10 @@ class Product2Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -78,10 +82,10 @@ class Product2Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Category $category)
     {
         //
     }

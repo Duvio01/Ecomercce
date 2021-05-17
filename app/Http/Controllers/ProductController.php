@@ -9,7 +9,12 @@ use App\Models\ProductHasCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
-{
+{   
+    public function __construct() 
+    {
+        $this->middleware(['product.available', 'auth'])->only(['show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
